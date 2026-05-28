@@ -2,54 +2,101 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Fibra | Procedural Texture Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fibra | AI Texture Generator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>🎨 Fibra</h1>
-    <p>تولید تکسچرهای بدون درز و PBR، مستقیم در مرورگر</p>
+    <p>تولید تکسچرهای PBR با هوش مصنوعی و پردازش تصویر</p>
   </header>
 
   <main class="workspace">
+    <!-- بخش پیش‌نمایش -->
     <div class="preview-area">
-      <canvas id="canvas"></canvas>
+      <div class="canvas-container">
+        <canvas id="canvas"></canvas>
+      </div>
       <div class="preview-actions">
-        <button id="randomizeBtn">🎲 تصادفی</button>
-        <button id="downloadBtn">⬇️ دانلود 1024px</button>
+        <button id="generateBtn">✨ تولید تکسچر</button>
+        <button id="downloadBtn">⬇️ دانلود PNG</button>
       </div>
     </div>
 
+    <!-- بخش کنترل‌ها -->
     <div class="controls">
+      <!-- تب‌ها -->
+      <div class="tabs">
+        <button class="tab active" data-tab="text">📝 تولید با متن</button>
+        <button class="tab" data-tab="image">🖼️ آپلود عکس</button>
+        <button class="tab" data-tab="presets">📦 پریست‌ها</button>
+      </div>
+
+      <!-- تب متن -->
+      <div class="tab-content active" id="text-tab">
+        <div class="control-group">
+          <label>توصیف تکسچر (انگلیسی)</label>
+          <input type="text" id="textInput" placeholder="مثال: old red brick wall, weathered wood, rusty metal...">
+        </div>
+        <div class="control-group">
+          <label>اندازه تکسچر</label>
+          <select id="textureSize">
+            <option value="512">512 × 512</option>
+            <option value="1024" selected>1024 × 1024</option>
+            <option value="2048">2048 × 2048</option>
+          </select>
+        </div>
+      </div>
+      <!-- تب آپلود عکس -->
+      <div class="tab-content" id="image-tab">
+        <div class="control-group">
+          <label>آپلود عکس</label>
+          <div class="upload-area" id="uploadArea">
+            <input type="file" id="imageInput" accept="image/*" style="display:none">
+            <div class="upload-placeholder">
+              <span>📁</span>
+              <p>عکس رو اینجا بکش یا کلیک کن</p>
+            </div>
+            <img id="uploadedPreview" style="display:none; max-width:100%; border-radius:8px">
+          </div>
+        </div>
+        <div class="control-group">
+          <label>نوع پردازش</label>
+          <select id="processType">
+            <option value="pbr">تبدیل به PBR کامل</option>
+            <option value="seamless">فقط بدون درز کردن</option>
+            <option value="enhance">بهبود کیفیت</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- تب پریست‌ها -->
+      <div class="tab-content" id="presets-tab">
+        <div class="preset-grid">
+          <button class="preset-btn" data-preset="brick">🧱 آجر</button>
+          <button class="preset-btn" data-preset="wood">🪵 چوب</button>
+          <button class="preset-btn" data-preset="stone">🪨 سنگ</button>
+          <button class="preset-btn" data-preset="metal">⚙️ فلز</button>
+          <button class="preset-btn" data-preset="concrete">🏗️ بتن</button>
+          <button class="preset-btn" data-preset="fabric">🧵 پارچه</button>
+        </div>
+      </div>
+
+      <!-- اسلایدرهای مشترک -->
       <div class="control-group">
-        <label>پریست پایه</label>
-        <select id="preset">
-          <option value="cosmic-rock">سنگ کهکشانی</option>
-          <option value="magic-wood">چوب جادویی</option>
-          <option value="neon-metal">فلز نئونی</option>
-        </select>
+        <label>پیچیدگی بافت <span id="complexityValue">50%</span></label>
+        <input type="range" id="complexitySlider" min="0" max="100" value="50">
       </div>
       
       <div class="control-group">
-        <label>رنگ پایه (Hue) <span id="hueValue">0°</span></label>
-        <input type="range" id="hueSlider" min="0" max="360" value="0">
+        <label>تغییر رنگ <span id="colorShiftValue">0%</span></label>
+        <input type="range" id="colorShiftSlider" min="-100" max="100" value="0">
       </div>
-      
+
       <div class="control-group">
-        <label>کنتراست <span id="contrastValue">1.0x</span></label>
-        <input type="range" id="contrastSlider" min="0.5" max="3" step="0.1" value="1">
-      </div>
-      
-      <div class="control-group">
-        <label>فرکانس بافت <span id="freqValue">1.0x</span></label>
-        <input type="range" id="freqSlider" min="0.5" max="3" step="0.1" value="1">
-      </div>
-      
-      <div class="control-group">
-        <label>درخشش <span id="glowValue">0%</span></label>
-        <input type="range" id="glowSlider" min="0" max="1" step="0.05" value="0">
-      </div>
+        <label>نورپردازی <span id="lightingValue">50%</span></label>
+        <input type="range" id="lightingSlider" min="0" max="100" value="50">      </div>
     </div>
   </main>
 
