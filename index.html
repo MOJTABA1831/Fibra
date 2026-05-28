@@ -2,23 +2,26 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fibra - Texture Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Fibra | Procedural Texture Studio</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>🎨 Fibra</h1>
-    <p>تولید تکسچر حرفه‌ای، مستقیم در مرورگر</p>
+    <p>تولید تکسچرهای بدون درز و PBR، مستقیم در مرورگر</p>
   </header>
 
   <main class="workspace">
-    <section class="preview-area">
+    <div class="preview-area">
       <canvas id="canvas"></canvas>
-      <button id="downloadBtn">⬇️ دانلود PNG (1024px)</button>
-    </section>
+      <div class="preview-actions">
+        <button id="randomizeBtn">🎲 تصادفی</button>
+        <button id="downloadBtn">⬇️ دانلود 1024px</button>
+      </div>
+    </div>
 
-    <section class="controls">
+    <div class="controls">
       <div class="control-group">
         <label>پریست پایه</label>
         <select id="preset">
@@ -27,38 +30,28 @@
           <option value="neon-metal">فلز نئونی</option>
         </select>
       </div>
-
+      
       <div class="control-group">
-        <label>کنتراست: <span id="contrastVal">1.4</span></label>
-        <input type="range" id="contrast" min="0.5" max="3" step="0.1" value="1.4">
+        <label>رنگ پایه (Hue) <span id="hueValue">0°</span></label>
+        <input type="range" id="hueSlider" min="0" max="360" value="0">
       </div>
-
+      
       <div class="control-group">
-        <label>روشنایی: <span id="brightnessVal">0.8</span></label>
-        <input type="range" id="brightness" min="0" max="1" step="0.05" value="0.8">
+        <label>کنتراست <span id="contrastValue">1.0x</span></label>
+        <input type="range" id="contrastSlider" min="0.5" max="3" step="0.1" value="1">
       </div>
-
+      
       <div class="control-group">
-        <label>فرکانس بافت: <span id="freqVal">1.0</span>x</label>
-        <input type="range" id="freqScale" min="0.5" max="3" step="0.1" value="1.0">
+        <label>فرکانس بافت <span id="freqValue">1.0x</span></label>
+        <input type="range" id="freqSlider" min="0.5" max="3" step="0.1" value="1">
       </div>
-
+      
       <div class="control-group">
-        <label>چرخش رنگ: <span id="hueShiftVal">0</span>°</label>
-        <input type="range" id="hueShift" min="0" max="360" step="1" value="0">
+        <label>درخشش <span id="glowValue">0%</span></label>
+        <input type="range" id="glowSlider" min="0" max="1" step="0.05" value="0">
       </div>
-
-      <div class="control-actions">
-        <button id="resetBtn">🔄 بازنشانی</button>
-        <button id="savePresetBtn">💾 ذخیره تنظیمات</button>
-      </div>
-    </section>
+    </div>
   </main>
-
-  <footer class="status-bar">
-    <span id="status">🟢 آماده | v1.1</span>
-    <a href="https://github.com/MOJTABA1831/Fibra" target="_blank">Open Source</a>
-  </footer>
 
   <script src="script.js"></script>
 </body>
