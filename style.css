@@ -1,0 +1,47 @@
+/* استایل اسلایدرها */
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.control-group label {
+  font-size: 0.85em;
+  color: #94a3b8;
+  display: flex;
+  justify-content: space-between;
+}
+.control-group input[type="range"] {
+  width: 100%;
+  height: 6px;
+  background: #334155;
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+}
+.control-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.control-group input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+.control-group span {
+  font-size: 0.8em;
+  color: #64748b;
+  text-align: left;
+  direction: ltr;
+}
+#randomizeBtn {
+  background: #6366f1;
+  border-color: #818cf8;
+  margin-top: 8px;
+}
+#randomizeBtn:hover {
+  background: #4f46e5;
+}
